@@ -3,3 +3,4 @@
 /terraform/example-01/.terraform.lock.hcl
 terraform/example-01/terraform.tfstate
 terraform/example-01/terraform.tfstate.backup
+terraform/example-01/.terraform.tfstate.lock.info

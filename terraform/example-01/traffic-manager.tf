@@ -1,7 +1,11 @@
 resource "azurerm_traffic_manager_profile" "traffic-profile" {
   name                   = "traffic-profile"
   resource_group_name    = azurerm_resource_group.regions-rgs[0].name
+<<<<<<< HEAD
   traffic_routing_method = "Geographic"
+=======
+  traffic_routing_method = "Performance"
+>>>>>>> b3afdfd (Implemented Traffic Manager.)
   dns_config {
     relative_name = "traffic-profile"
     ttl           = 100
@@ -20,5 +24,9 @@ resource "azurerm_traffic_manager_azure_endpoint" "traffic-manager-endpoints" {
   count              = length(azurerm_public_ip.regions-public-ips)
   name               = "${azurerm_public_ip.regions-public-ips[count.index].name}-endpoint"
   profile_id         = azurerm_traffic_manager_profile.traffic-profile.id
+<<<<<<< HEAD
   target_resource_id = azurerm_public_ip.regions-public-ips[count.index].id
+=======
+  target_resource_id = azurerm_public_ip.regions-public-ips[count.index].id  
+>>>>>>> b3afdfd (Implemented Traffic Manager.)
 }
