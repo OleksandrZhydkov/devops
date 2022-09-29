@@ -49,18 +49,26 @@ resource "azurerm_public_ip" "regions-public-ips" {
   resource_group_name = azurerm_resource_group.regions-rgs[count.index].name
   sku                 = "Standard"
   allocation_method   = "Static"
+  domain_name_label   = trimsuffix(var.dns-zone, ".com")
 }
 
 # resource "azurerm_dns_zone" "regions-dns-zone" {
+#   count               = length(azurerm_public_ip.regions-public-ips)
 #   name                = var.dns-zone
-#   resource_group_name = azurerm_resource_group.regions-rgs[count.index].name
+#   resource_group_name = azurerm_public_ip.regions-public-ips[count.index].resource_group_name
+# }
+
+# output "server-names" {
+#   value = [
+#     for zone in azurerm_dns_zone.regions-dns-zone : zone.name_servers
+#   ]
 # }
 
 # resource "azurerm_dns_a_record" "load-balancer-records" {
 #   count               = length(azurerm_public_ip.regions-public-ips)
-#   name                = ""
-#   zone_name           = azurerm_dns_zone.regions-dns-zone.name
-#   resource_group_name = azurerm_dns_zone.regions-dns-zone.resource_group_name
+#   name                = azurerm_public_ip.regions-public-ips[count.index].location
+#   zone_name           = var.dns-zone
+#   resource_group_name = azurerm_public_ip.regions-public-ips[count.index].resource_group_name
 #   ttl                 = 300
 #   records             = [azurerm_public_ip.regions-public-ips[count.index].ip_address]
 # }

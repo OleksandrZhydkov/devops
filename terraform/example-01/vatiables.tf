@@ -15,7 +15,7 @@ variable "count-of-vms-per-subnet" {
 }
 
 variable "dns-zone" {
-  default = ""
+  default = "oleksandr-zhydkov.com"
 }
 
 variable "deploy-file-name" {
