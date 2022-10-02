@@ -14,7 +14,7 @@ $securityGroupName = "Varonis Assignment Group"
 
 try {
     Set-Log
-    # Connect-AzureAD -TenantId $tenantId - uncomment for 1st login
+    #Connect-AzureAD -TenantId $tenantId # - uncomment for 1st login
     $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
     $isConnected = Connect-To-Azure-Ad -tenantId $tenantId -user $loginUser -securePassword $securePassword
     if (!$isConnected) {
@@ -51,5 +51,5 @@ function Set-Log {
 }
 
 function Add-Report-Object([string] $userName, [bool] $isAdded) {
-    return [pscustomobject]@{UserName = $user.DisplayName; Timestamp = Get-Date -f 'yyyyMMddHHmmss'; Result = if ($isAdded) { "<c='green'>success</c>" } else { "<c='red'>failure</c>" } }
+    return [pscustomobject]@{UserName = $userName; Timestamp = Get-Date -f 'yyyyMMddHHmmss'; Result = if ($isAdded) { "<c='green'>success</c>" } else { "<c='red'>failure</c>" } }
 }
