@@ -4,7 +4,7 @@ from .helpers.KeyVaultInfoProvider import KeyVaultInfoProvider
 from .helpers.KeyVaultInfo import KeyVaultInfo
 
 # secret name = VaronisAssignmentSecret
-key_vault_names = ["MyVaronisAssignmentKv1", "MyVaronisAssignmentKv2", "MyVaronisAssignmentKv3"]
+key_vault_names = ["MyVaronisAssignmentKv1", "MyVaronisAssignmentKv2", "MyVaronisAssignmentKv3"] # Can be stored in config section of fumction app. Also key vault reference can be used to get a secret.
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -22,7 +22,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         try:
             key_vault_info_provider = KeyVaultInfoProvider(key_vault_names)
             key_vault_infos = key_vault_info_provider.get_secret_infos(name)
-            
+
             content = ""
             for info in key_vault_infos:
                 content += info.__str__() + "\n"
@@ -30,7 +30,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             print(content)  
 
             return func.HttpResponse(content)
-        except Exception as e:
+        except Exception:
             return func.HttpResponse("Error occured")
     else:
         return func.HttpResponse(
